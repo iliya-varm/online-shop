@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block haeder %}
+    <title>فروشگاه اینترنتی ایلیا</title>
+{% endblock %}
+{% block body %}
+
+    {% for p in products %}
+        {{ p.name }}
+    {% endfor %}
+
+
+{% endblock %}

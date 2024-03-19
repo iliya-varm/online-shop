@@ -30,12 +30,12 @@
 
     <form action="#" method="post" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <label>cover:</label><input type="file" name="cover"><br>
+        <label>عکس :</label><input type="file" name="cover" ><br>
         <input type="text" name="name" placeholder="نام محصول"><br>
         <textarea name="description" placeholder="توضیحات"></textarea><br>
         <input type="number" name="price" placeholder="قیمت محصول"><br>
         <label>فعال:</label><input value="1" type="checkbox" name="active"><br>
-        <input type="submit">
+        <input type="submit" value="اضافه کردن">
     </form>
 
 {% endblock %}

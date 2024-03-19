@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block haeder %}
-    <title>admin login</title>
+    <title>admin</title>
 {% endblock %}
 {% block body %}
 
-    <h1>admin login</h1>
+    <h1>حساب ادمین</h1>
     <form action="#" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <input type="text" name="username" placeholder="username"><br>
-        <input type="password" name="password" placeholder="password"><br>
-        <input type="submit">
+        <input type="text" name="username" placeholder="نام کاربری" ><br>
+        <input type="password" name="password" placeholder="رمز عبور" ><br>
+        <input type="submit" value="ورود">
     </form>
 
 {% endblock %}

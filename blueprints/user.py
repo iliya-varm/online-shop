@@ -1,11 +1,14 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, login_required, current_user
 from passlib.hash import sha256_crypt
+import config
 from extentions import db
 from models.cart import Cart
 from models.cart_item import CartItem
+from models.payment import Payment
 from models.product import Product
 from models.user import User
+import requests
 
 app = Blueprint('user', __name__)
 
@@ -49,9 +52,6 @@ def login():  # put application's code here
             return redirect(url_for('user.login'))
 
 
-
-
-
 @app.route('/add-to-cart', methods=['GET'])
 @login_required
 def add_to_cart():
@@ -67,6 +67,7 @@ def add_to_cart():
     cart_item = cart.cart_items.filter(CartItem.product == product).first()
     if cart_item == None:
         item = CartItem(quantity=1)
+        item.price = product.price
         item.cart = cart
         item.product = product
         db.session.add(item)
@@ -83,7 +84,7 @@ def add_to_cart():
 def remove_from_cart():
     id = request.args.get('id')
     cart_item = CartItem.query.filter(CartItem.id == id).first_or_404()
-    if cart_item.quantity > 1 :
+    if cart_item.quantity > 1:
         cart_item.quantity -= 1
     else:
         db.session.delete(cart_item)
@@ -91,11 +92,68 @@ def remove_from_cart():
     return redirect(url_for('user.cart'))
 
 
-
 @app.route('/cart', methods=['GET'])
 @login_required
 def cart():
-    return render_template('user/cart.html')
+    cart = current_user.carts.filter(Cart.status == "pending").first()
+    return render_template('user/cart.html', cart=cart)
+
+
+@app.route('/payment', methods=['GET'])
+@login_required
+def payment():
+    cart = current_user.carts.filter(Cart.status == "pending").first()
+
+    r = requests.post(config.PAYMENT_FIRST_REQUEST_URL,
+                      data={
+                          'api': config.PAYMENT_MERCHANT,
+                          'amount': cart.total_price(),
+                          'callback': config.PAYMENT_CALLBACK
+                      })
+    token = r.json()['result']['token']
+    url = r.json()['result']['url']
+
+    pay = Payment(price=cart.total_price(), token=token)
+    pay.cart = cart
+    db.session.add(pay)
+    db.session.commit()
+
+    return redirect(url)
+
+
+@app.route('/verify', methods=['GET'])
+@login_required
+def verify():
+    token = request.args.get('token')
+    pay = Payment.query.filter(Payment.token == token).first_or_404()
+
+    r = requests.post(config.PAYMENT_VARIFY_REQUEST_URL,
+                      data={
+                          'api': 'sandbox',
+                          'amount': pay.price,
+                          'token': token
+                      })
+
+    pay.status = bool(r.json()['success'])
+    if pay.status:
+        transaction_id = r.json()['result']['transaction_id']
+        refid = r.json()['result']['refid']
+        card_pan = r.json()['result']['card_pan']
+
+        pay.card_pan = card_pan
+        pay.transaction_id = transaction_id
+        pay.refid = refid
+        pay.status = 'success'
+        pay.cart.status = 'paid'
+        flash("پرداخت موفقیت امیز بود.")
+    else:
+        flash("پرداخت با خطا مواجه شد.")
+        pay.status = 'failed'
+
+    db.session.commit()
+
+    return redirect(url_for('user.dashboard'))
+
 
 @app.route('/user/dashboard', methods=['GET'])
 @login_required

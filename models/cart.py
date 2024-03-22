@@ -11,9 +11,23 @@ class Cart(db.Model):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     user = db.relationship('User', backref=backref('carts', lazy='dynamic'))
 
-
     def total_price(self):
         total = 0
         for item in self.cart_items:
-            total = item.price * item.quantity
+            total += item.price * item.quantity
         return total
+
+    def get_status_persian(self):
+        if self.status == "pending":
+            return " در انتظار پرداخت (سبد خرید) "
+
+        if self.status == "paid":
+            return " پرداخت شده "
+
+        if self.status == "sent":
+            return " ارسال شده "
+
+        if self.status == "rejected":
+            return " رد شده "
+
+

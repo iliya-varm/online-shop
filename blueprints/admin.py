@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, abort, url_for
 import config
+from models.cart import Cart
 from models.product import Product
 from extentions import db
 
@@ -31,9 +32,22 @@ def login():  # put application's code here
 
 @app.route('/admin/dashboard', methods=["GET"])
 def dashboard():
-    return render_template("admin/dashboard.html")
+    carts = Cart.query.filter(Cart.status != "pending").all()
+    return render_template("admin/dashboard.html", carts=carts)
 
 
+@app.route('/admin/dashboard/order/<id>', methods=["GET", "POST"])
+def order(id):
+    cart = Cart.query.filter(Cart.id == id).first()
+
+    if request.method == "GET":
+        return render_template("admin/order.html", cart=cart)
+    else:
+        if request.method == "POST":
+            status = request.form.get("status")
+            cart.status = status
+            db.session.commit()
+            return redirect(url_for("admin.order", id=id))
 @app.route('/admin/dashboard/products', methods=["GET", "POST"])
 def products():
     if request.method == "GET":
@@ -67,7 +81,6 @@ def edit_product(id):
 
     if request.method == "GET":
 
-
         return render_template("admin/edit-product.html", product=product)
     else:
         name = request.form.get("name", None)
@@ -89,4 +102,4 @@ def edit_product(id):
         if file != None:
             file.save(f'static/cover/{product.id}.jpg')
 
-        return redirect(url_for("admin.edit_product", id= id))
+        return redirect(url_for("admin.edit_product", id=id))

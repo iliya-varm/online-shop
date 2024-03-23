@@ -1,6 +1,6 @@
 <div class="product-box">
     <a style="all:unset;cursor: pointer;" href="{{ url_for ('general.product', id=p.id,name=p.name) }}">
-        <section >
+        <section>
             <img src="{{ url_for('static', filename='cover/'+p.id|string+'.jpg') }}">
 
             <span class="tag red" style="margin-right: 5px;"><img
@@ -11,7 +11,7 @@
             <h3>{{ p.name }}</h3>
             <p>{{ p.description|truncate(100) }}</p>
 
-            <span class="price">{{ p.price }}</span>
+            <span class="price" style="float: left; padding-left: 10px;">{{ p.price }}</span>
         </section>
     </a>
     <a class="add-to-cart-btn" href="/add-to-cart?id={{ p.id }}">افزودن به <img

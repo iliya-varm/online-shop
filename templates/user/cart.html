@@ -1,24 +1,50 @@
 {% extends 'base.html' %}
 {% block haeder %}
-    <title>سبدخرید کاربر</title>
+    <title>سبدخرید</title>
 {% endblock %}
 {% block body %}
 
-{% if cart != None and cart.cart_items|list|length > 0 %}
-    {% for cart_item in cart.cart_items %}
-        {{ cart_item.product.name }} , {{ cart_item.quantity }} , {{ cart_item.product.price }}
-        <form action="/remove-from-cart" method="get">
-            <input type="hidden" name="id" value="{{ cart_item.id }}">
-            <input type="submit" value="حذف">
-        </form>
-    {% endfor %}
+    {% include 'part/header.html' %}
 
-    <b>قیمت کل: {{ cart.total_price() }} تومان</b><br>
+    <section class="simple-box carts">
 
-    <a href="/payment">پرداخت</a>
+    <h1>سبد خرید</h1>
 
-{% else %}
-    سبد خرید خالی است.
-{% endif %}
+        {% if cart != None and cart.cart_items|list|length > 0 %}
+            <table class="cart">
+
+                <tr>
+
+                    <th>محصول</th>
+                    <th>قیمت</th>
+                    <th>تعداد</th>
+                </tr>
+                {% for cart_item in cart.cart_items %}
+
+                    <tr>
+
+                        <td>{{ cart_item.product.name }}</td>
+                        <td class="price">{{ cart_item.product.price }}</td>
+                        <td><a class="cartitem-btn cart-increase" href="/remove-from-cart?id={{ cart_item.id }}">-</a> {{ cart_item.quantity }} <a
+                                class="cartitem-btn cart-decrease" href="/add-to-cart?id={{ cart_item.product.id }}">+</a></td>
+
+                    </tr>
+                {% endfor %}
+
+                <tr>
+
+                    <td colspan="3" style="text-align: left;"><span class="price">{{ cart.total_price() }}</span></td>
+
+                </tr>
+
+</table>
+                <a class="pay-btn" href="/payment">پرداخت</a>
+
+
+        {% else %}
+            سبد خرید خالی است.
+        {% endif %}
+
+    </section>
 
 {% endblock %}

@@ -47,7 +47,7 @@
 }
 
 :root {
-    --font-color: #5f5f5f;
+    --font-color: #262626;
 }
 
 * {
@@ -103,7 +103,7 @@ header div input {
     border: 2px solid rgba(0, 0, 0, 0.3);
 }
 
-header a {
+header .header-link {
     font-size: 20px;
     color: var(--font-color);
     text-decoration: none;
@@ -182,7 +182,7 @@ header a:hover {
     border-bottom-left-radius: 9px;
     background: rgba(13, 161, 0);
     font-weight: 400;
-    display: flex;
+    display: flex !important;
     justify-content: center;
 }
 
@@ -205,13 +205,13 @@ header a:hover {
     font-weight: 300;
 }
 
-a {
-    display: inline-flex;
+a.icon {
+  display: inline-flex;
     align-items: center;
 
 }
 
-a > img {
+a.icon > img {
     width: 20px;
     margin-right: 5px;
 }
@@ -264,10 +264,16 @@ a > img {
     justify-content: center;
     align-items: start;
     margin: 50px auto auto;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 10px;
 }
 
-.product-detail-box > img {
+.product-detail-box .product-image {
     max-width: 280px;
+    margin-left: 10px;
+    width: 100%;
 }
 
 .product-detail-box > section {
@@ -298,6 +304,24 @@ a > img {
     text-align: center;
 }
 
+.carts .pay-btn {
+    text-decoration: none;
+    color: var(--font-color);
+    font-size: 20px;
+    float: left;
+    font-weight: 700;
+    border-radius: 5px;
+    border: 1px solid rgba(38, 38, 38, 0.1);
+    background: #42ff2d;
+    padding: 8px;
+    margin: 5px;
+}
+
+.carts .pay-btn:hover {
+    border: 1px solid rgba(38, 38, 38, 0.1);
+    background: rgba(0, 255, 0, 0.22);
+}
+
 .product-description-box {
     max-width: 1100px;
     margin: auto;
@@ -325,6 +349,61 @@ a > img {
     font-size: 20px;
     margin: 10px;
     display: none;
+}
+
+.simple-box {
+    background: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    max-width: 970px;
+    margin: 20px auto auto;
+    padding: 10px;
+    overflow: auto;
+}
+
+.simple-box h1 {
+    margin: 0 10px;
+}
+
+.cartitem-btn {
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+    padding: 2px;
+    text-align: center;
+    display: inline-block;
+    margin: 5px;
+    color: var(--font-color);
+    text-decoration: none;
+}
+
+.cart-decrease {
+    background: rgba(0, 255, 0, 0.58);
+}
+
+.cart-increase {
+    text-align: center;
+    background: rgba(255, 0, 0, 0.62);
+}
+
+.cart-decrease:hover {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+.cart-increase:hover {
+    background: rgba(255, 0, 6, 0.2);
+}
+
+table.cart {
+    margin: auto;
+
+}
+
+table.cart td {
+    padding: 5px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+
 }
 
 @media (max-width: 733px) {

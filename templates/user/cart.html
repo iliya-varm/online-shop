@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block haeder %}
-    <title>سبدخرید</title>
+    <title>سبد خرید</title>
 {% endblock %}
 {% block body %}
 
@@ -8,7 +8,7 @@
 
     <section class="simple-box carts">
 
-    <h1>سبد خرید</h1>
+        <h1>سبد خرید</h1>
 
         {% if cart != None and cart.cart_items|list|length > 0 %}
             <table class="cart">
@@ -25,8 +25,10 @@
 
                         <td>{{ cart_item.product.name }}</td>
                         <td class="price">{{ cart_item.product.price }}</td>
-                        <td><a class="cartitem-btn cart-increase" href="/remove-from-cart?id={{ cart_item.id }}">-</a> {{ cart_item.quantity }} <a
-                                class="cartitem-btn cart-decrease" href="/add-to-cart?id={{ cart_item.product.id }}">+</a></td>
+                        <td><a class="cartitem-btn cart-increase"
+                               href="/remove-from-cart?id={{ cart_item.id }}">-</a> {{ cart_item.quantity }} <a
+                                class="cartitem-btn cart-decrease"
+                                href="/add-to-cart?id={{ cart_item.product.id }}">+</a></td>
 
                     </tr>
                 {% endfor %}
@@ -37,8 +39,9 @@
 
                 </tr>
 
-</table>
-                <a class="pay-btn" href="/payment">پرداخت</a>
+            </table>
+            <a class="pay-btn icon" href="/payment">پرداخت <img
+                    src="{{ url_for('static', filename="theme-image/payment.png") }}"></a>
 
 
         {% else %}

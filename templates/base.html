@@ -42,7 +42,7 @@
     import {Eggy} from '{{ url_for('static',filename='js/eggy.js') }}';
     {% for m in get_flashed_messages() %}
         Eggy({
-            title: 'خطا',
+            title: 'اطلاعات',
             message: '{{m}}',
             type: 'info',
             duration: 5000,

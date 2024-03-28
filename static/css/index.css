@@ -142,6 +142,10 @@ header a:hover {
     font-weight: 500;
 }
 
+td.price {
+    font-weight: normal;
+}
+
 .product-box section > img {
     width: 100%;
     border-top-right-radius: inherit;
@@ -306,21 +310,25 @@ a.icon > img {
 
 .carts .pay-btn {
     text-decoration: none;
-    color: var(--font-color);
     font-size: 20px;
     float: left;
     font-weight: 700;
     border-radius: 5px;
-    border: 1px solid rgba(38, 38, 38, 0.1);
-    background: #42ff2d;
-    padding: 8px;
+    border: 2px solid #12b300;
+    color: #12b300;
+    padding: 3px;
     margin: 5px;
 }
 
 .carts .pay-btn:hover {
-    border: 1px solid rgba(38, 38, 38, 0.1);
-    background: rgba(0, 255, 0, 0.22);
+    background: #12b300;
+    color: #ffffff;
 }
+
+.carts .pay-btn > img {
+    width: 30px;
+}
+
 
 .product-description-box {
     max-width: 1100px;
@@ -359,6 +367,12 @@ a.icon > img {
     margin: 20px auto auto;
     padding: 10px;
     overflow: auto;
+}
+
+p {
+    text-align: justify;
+    padding: 5px 10px;
+
 }
 
 .simple-box h1 {

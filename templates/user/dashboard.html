@@ -9,7 +9,7 @@
     <section class="simple-box carts" style="max-width: 376px">
 
         <h1>سفارشات</h1>
-    {% if current_user.cart|list|length > 0 %}
+    {% if current_user.carts|selectattr('status','!=','pending')|list|length > 0 %}
         <table class="cart">
             <tr>
 

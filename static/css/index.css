@@ -232,6 +232,7 @@ a.icon > img {
     max-height: 361px;
     width: 100%;
     margin: 10px auto;
+    padding-top: 10px;
 }
 
 .tag {
@@ -330,12 +331,28 @@ a.icon > img {
     border-radius: 5px;
     border: 2px solid #12b300;
     color: #12b300;
-    padding: 3px;
+    padding: 8px;
     margin: 5px;
 }
 
 .carts .pay-btn:hover {
     background: #12b300;
+    color: #ffffff;
+}
+
+.red-btn {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 15px;
+    border: 2px solid #ff0000;
+    color: #ff0000;
+    padding: 5px;
+    margin: 5px;
+}
+
+.red-btn:hover {
+    background: #ff0000;
     color: #ffffff;
 }
 

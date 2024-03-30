@@ -5,20 +5,15 @@
 {% block body %}
 
     {% include 'part/header.html' %}
-
-    <section class="simple-box carts">
-
+    <section class="simple-box carts" style="margin-top: 30px">
         <h1>سفارش شماره {{ cart.id }} - {{ cart.get_status_persian() }}<br></h1>
-
         <table class="cart">
             <tr>
-
                 <th>شماره محصول</th>
                 <th>نام محصول</th>
                 <th>قیمت</th>
                 <th>تعداد</th>
             </tr>
-
             {% for item in cart.cart_items %}
                 <tr>
                     <td>{{ item.product.id }}</td>
@@ -27,13 +22,32 @@
                     <td>{{ item.quantity }}</td>
                 </tr>
             {% endfor %}
-
         <tr>
             <td colspan="3" style="text-align: left" class="price">{{ cart.total_price() }}</td>
         </tr>
-
-
         </table>
+
+    <table class="cart" style="margin-top: 30px">
+        <tr>
+            <th>وضعیت</th>
+            <th>قیمت</th>
+            <th>شماره پیگیری</th>
+            <th>شماره تراکنش</th>
+            <th>شماره کارت</th>
+        </tr>
+
+        {% for pay in cart.payments %}
+        <tr>
+        <td>{{ pay.get_status_persian() }}</td>
+        <td class="price">{{ pay.price }}</td>
+        <td>{{ pay.refid }}</td>
+        <td>{{ pay.transaction_id }}</td>
+        <td>{{ pay.card_pan }}</td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
     </section>
 
 

@@ -12,6 +12,9 @@ def main():
     products = Product.query.filter(Product.active == 1)
     if search != None:
         products = products.filter(Product.name.like(f'%{search}%')).all()
+
+    products = products.order_by(func.random()).all()
+
     return render_template('main.html', products=products, search=search)
 
 

@@ -247,13 +247,18 @@ a.icon > img {
 }
 
 .banner {
-    border-radius: 45px;
+    border-radius: 35px;
     display: block;
     max-width: 800px;
-    max-height: 361px;
+    height: 0;
     width: 100%;
-    margin: 10px auto;
-    padding-top: 10px;
+    margin: auto;
+    transition: height 500ms ease-in !important;
+}
+
+#slideshow {
+    margin-top: 30px;
+    height: 300px;
 }
 
 .tag {

@@ -5,7 +5,9 @@
 {% block body %}
     {% include 'part/header.html' %}
     <div id="slideshow">
+        <a href="http://localhost:5000">
         <img class="banner" src="{{ url_for('static', filename='image/iliya.png') }}">
+            </a>
         <a href="http://localhost:5000/?search=%D9%84%D9%BE+%D8%AA%D8%A7%D9%BE">
 
         <img class="banner" src="{{ url_for('static', filename='image/laptop.png') }}">
@@ -19,7 +21,7 @@
             {% include 'part/product.html' %}
         {% endfor %}
     </section>
-
+        {% include 'part/about.html' %}
 
     <script>
     const slide_show_items = document.getElementsByClassName('banner')
@@ -33,7 +35,7 @@
         else
             slide_show_items[next_slide - 1].style.height = "0"
 
-        slide_show_items[next_slide].style.height = "300px"
+        slide_show_items[next_slide].style.height = "210px"
         next_slide++
     }
     change_slide_show()

@@ -1,8 +1,9 @@
 <header>
-    <section>
-        <a href="/">
-            <img src="{{ url_for('static', filename= 'image/logo.png') }}" alt="shop iliya">
+        <a class="a-box" href="/">
+    <img src="{{ url_for('static', filename= 'image/logo.png') }}" alt="shop iliya">
         </a>
+    <section>
+
         <div id="header-menu">
             <span id="header-menu-close-btn" onclick="javascript:change_header_menu(false)">X</span>
 
@@ -27,4 +28,5 @@
         <img src="{{ url_for('static', filename= 'theme-image/menu.png') }}" id="header-menu-btn"
              onclick="javascript:change_header_menu(true)">
     </section>
+
 </header>

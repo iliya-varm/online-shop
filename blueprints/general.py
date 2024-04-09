@@ -3,7 +3,7 @@ from sqlalchemy.sql.expression import func
 
 from models.product import Product
 
-app = Blueprint("general", __name__)
+app = Blueprint('general', __name__)
 
 
 @app.route('/')
@@ -25,12 +25,12 @@ def product(id, name):
     product = Product.query.filter(Product.id == id).filter(Product.name == name).filter(
         Product.active == 1).first_or_404()
 
-    another_products = Product.query.filter(Product.active == 1).filter(
+    another_product = Product.query.filter(Product.active == 1).filter(
         Product.name.like(f'%{product.name[0:5]}%')).order_by(func.random()).limit(3).all()
 
-    return render_template('product.html', product=product, another_products=another_products)
+    return render_template('product.html', product=product, another_product=another_product)
 
 
 @app.route('/about')
-def about():
+def about():  # put application's code here
     return render_template('about.html')
